@@ -40,7 +40,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:hint="Gyro Repeater"
-            android:hintTextColor="#546E7A"
             android:minHeight="48dp"
             android:singleLine="true" />
 
@@ -72,7 +71,6 @@
                 android:layout_height="wrap_content"
                 android:hint="Digital Clock Cabinet"
                 android:format12Hour="hh:mm"
-                android:hintTextColor="#78909C"
                 android:textSize="20sp" 
                 android:layout_marginTop="20dp" />
 
@@ -102,7 +100,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Stepper Motor Controller"
-            android:hintTextColor="#546E7A"
             android:minHeight="48dp"
             android:singleLine="true" 
             android:layout_marginTop="20dp" />
@@ -123,7 +120,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:hint="General / Raw Message"
-            android:hintTextColor="#546E7A"
             android:minHeight="48dp"
             android:singleLine="true" />
 

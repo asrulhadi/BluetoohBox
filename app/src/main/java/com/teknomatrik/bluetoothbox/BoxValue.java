@@ -1,4 +1,4 @@
-package com.e.bluetoothbox;
+package com.teknomatrik.bluetoothbox;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
