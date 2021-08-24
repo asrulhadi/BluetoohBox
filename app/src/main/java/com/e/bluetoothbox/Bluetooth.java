@@ -143,7 +143,7 @@ public class Bluetooth extends AppCompatActivity {
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public  void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
                 if (!mBlueAdapter.isEnabled()) {
@@ -205,7 +205,7 @@ public class Bluetooth extends AppCompatActivity {
         }
     });
 
-    private class ServerClass extends Thread{
+    private class ServerClass extends Thread {
         public ServerClass(){
             try {
                 serverSocket = mBlueAdapter.listenUsingRfcommWithServiceRecord(APP_NAME,MYUUID);
@@ -214,19 +214,17 @@ public class Bluetooth extends AppCompatActivity {
             }
         }
 
-        public  void run()
-        {
+        public  void run() {
             BluetoothSocket socket = null;
 
-            while(socket==null)
-            {
-                try{
+            while(socket==null) {
+                try {
                     Message message = Message.obtain();
                     message.what = STATE_CONNECTING;
                     handler.sendMessage(message);
 
                     socket=serverSocket.accept();
-                }catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
 
                     Message message = Message.obtain();
@@ -234,7 +232,7 @@ public class Bluetooth extends AppCompatActivity {
                     handler.sendMessage(message);
                 }
 
-                if(socket!=null){
+                if (socket!=null) {
                     Message message = Message.obtain();
                     message.what = STATE_CONNECTED;
                     handler.sendMessage(message);
@@ -248,10 +246,8 @@ public class Bluetooth extends AppCompatActivity {
 
     }
 
-    public class SendRecieve extends Thread
-    {
-        public SendRecieve (BluetoothSocket socket)
-        {
+    public class SendRecieve extends Thread {
+        public SendRecieve (BluetoothSocket socket) {
             bluetoothSocket=socket;
             InputStream tempIn = null;
             OutputStream tempOut = null;
@@ -267,24 +263,21 @@ public class Bluetooth extends AppCompatActivity {
             outputStream=tempOut;
         }
 
-        public void run()
-        {
+        public void run() {
             byte[] buffer = new byte[1024];
             int bytes;
 
-            while(true)
-            {
-                try{
+            while(true) {
+                try {
                     bytes = inputStream.read(buffer);
                     handler.obtainMessage(STATE_MESSAGE_RECEIVED,bytes,-1,buffer).sendToTarget();
-                }catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
 
-        public void write(byte[] bytes)
-        {
+        public void write(byte[] bytes) {
             try{
                 outputStream.write(bytes);
             }catch(IOException e){

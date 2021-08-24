@@ -27,8 +27,8 @@ import java.util.UUID;
 public class BoxValue extends AppCompatActivity {
 
     TextView status, msg_box;
-    Button sendG, sendC, sendM;
-    EditText gyro, motor;
+    Button sendG, sendC, sendM, sendR;
+    EditText gyro, motor, raw;
     TextClock clock, second;
 
     Date today = new Date();
@@ -69,8 +69,7 @@ public class BoxValue extends AppCompatActivity {
         implementListeners();
     }
 
-    private void findViewByIdea()
-    {
+    private void findViewByIdea() {
         status = (TextView) findViewById(R.id.status);
         gyro = (EditText) findViewById(R.id.gyro);
         sendG = (Button) findViewById(R.id.sendGyro);
@@ -79,6 +78,8 @@ public class BoxValue extends AppCompatActivity {
         sendC = (Button) findViewById(R.id.sendClock);
         motor = (EditText) findViewById(R.id.stepperMotor);
         sendM = (Button) findViewById(R.id.sendStepperMotor);
+        raw = (EditText) findViewById(R.id.rawMsg);
+        sendR = (Button) findViewById(R.id.sendRawMsg);
         msg_box = (TextView) findViewById(R.id.msg);
     }
 
@@ -113,6 +114,15 @@ public class BoxValue extends AppCompatActivity {
                 sendRecieve.write(s.getBytes());
             }
         });
+
+        sendR.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                String string = String.valueOf(raw.getText());
+                motor.setText("");
+                sendRecieve.write(string.getBytes());
+            }
+        });
     }
 
     Handler handler = new Handler(new Handler.Callback() {
@@ -143,25 +153,23 @@ public class BoxValue extends AppCompatActivity {
         }
     });
 
-    private class ClientClass extends Thread{
+    private class ClientClass extends Thread {
 
         private BluetoothDevice device;
         private BluetoothSocket socket;
 
-        public ClientClass(BluetoothDevice device1)
-        {
+        public ClientClass(BluetoothDevice device1) {
             device = device1;
 
-            try{
+            try {
                 socket = device.createRfcommSocketToServiceRecord(MYUUID);
 
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        public  void run()
-        {
+        public  void run() {
             try{
                 socket.connect();
                 Message message = Message.obtain();
@@ -171,7 +179,7 @@ public class BoxValue extends AppCompatActivity {
                 sendRecieve = new SendRecieve(socket);
                 sendRecieve.start();
 
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
                 Message message = Message.obtain();
                 message.what = STATE_CONNECTION_FAILED;
@@ -180,22 +188,20 @@ public class BoxValue extends AppCompatActivity {
         }
     }
 
-    public class SendRecieve extends Thread
-    {
+    public class SendRecieve extends Thread {
         private final  BluetoothSocket bluetoothSocket;
         private final InputStream inputStream;
         private final OutputStream outputStream;
 
-        public SendRecieve (BluetoothSocket socket)
-        {
+        public SendRecieve (BluetoothSocket socket) {
             bluetoothSocket=socket;
             InputStream tempIn = null;
             OutputStream tempOut = null;
 
-            try{
+            try {
                 tempIn = bluetoothSocket.getInputStream();
                 tempOut = bluetoothSocket.getOutputStream();
-            }catch(IOException e){
+            } catch(IOException e) {
                 e.printStackTrace();
             }
 
@@ -203,27 +209,24 @@ public class BoxValue extends AppCompatActivity {
             outputStream=tempOut;
         }
 
-        public void run()
-        {
+        public void run() {
             byte[] buffer = new byte[1024];
             int bytes;
 
-            while(true)
-            {
-                try{
+            while(true) {
+                try {
                     bytes = inputStream.read(buffer);
                     handler.obtainMessage(STATE_MESSAGE_RECEIVED,bytes,-1,buffer).sendToTarget();
-                }catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
 
-        public void write(byte[] bytes)
-        {
-            try{
+        public void write(byte[] bytes) {
+            try {
                 outputStream.write(bytes);
-            }catch(IOException e){
+            } catch(IOException e) {
                 e.printStackTrace();
             }
         }
