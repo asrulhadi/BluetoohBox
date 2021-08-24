@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:layout_centerHorizontal="true"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:id="@+id/header">
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="17dp"
+            android:textColor="#000"
+            android:layout_marginBottom="40dp"/>
+
+        <TextView
+            android:id="@+id/msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:textColor="#000"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Gyro Repeater"
+            android:id="@+id/gyro"
+            android:layout_marginTop="15dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="200dp"
+            android:layout_gravity="center"
+            android:text="Send"
+            android:background="#EBC06C"
+            android:id="@+id/sendGyro"
+            android:layout_marginTop="10dp"/>
+
+       <!-- <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digital Clock Cabinet"
+            android:id="@+id/clock"
+            android:layout_marginTop="20dp"/>-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <TextClock
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digital Clock Cabinet"
+            android:id="@+id/clock"
+            android:format12Hour="hh:mm"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"/>
+
+        <TextClock
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/second"
+            android:format24Hour=":ss"
+            android:textSize="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="50dp"/>
+
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="200dp"
+            android:layout_gravity="center"
+            android:text="Send"
+            android:background="#EBC06C"
+            android:id="@+id/sendClock"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Stepper Motor Controller"
+            android:id="@+id/stepperMotor"
+            android:layout_marginTop="20dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="200dp"
+            android:layout_gravity="center"
+            android:text="Send"
+            android:background="#EBC06C"
+            android:id="@+id/sendStepperMotor"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="100dp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:id="@+id/footer">
+
+        <TextView
+            android:id="@+id/copyright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:text="\u00a9">
+        </TextView>
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="14dp"
+            android:src="@drawable/logo"/>
+
+        <TextView
+            android:id="@+id/tekno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11dp"
+            android:text="            Teknomatrik Sdn. Bhd.">
+        </TextView>
+
+        <TextView
+            android:id="@+id/by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:textSize="11dp"
+            android:text="              By: Siti Khadijah">
+        </TextView>
+    </RelativeLayout>
+</RelativeLayout>
