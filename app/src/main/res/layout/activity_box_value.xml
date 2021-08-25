@@ -9,163 +9,246 @@
     android:layout_centerHorizontal="true"
     android:gravity="center_horizontal">
 
-    <LinearLayout
-        android:id="@+id/header"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
+        android:fillViewport="true">
+
+    <LinearLayout android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="match_parent"
+        <TextView android:id="@+id/status"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
             android:text=""
             android:textColor="#000"
             android:textSize="17sp" />
 
-        <TextView
-            android:id="@+id/msg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:textSize="17sp" />
-
-        <EditText
-            android:id="@+id/gyro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="Gyro Repeater"
-            android:minHeight="48dp"
-            android:singleLine="true" />
-
-        <Button
-            android:id="@+id/sendGyro"
+        <TextView android:id="@+id/msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="200dp"
-            android:layout_gravity="center"
-            android:text="Send" 
-            android:background="#EBC06C"
-            android:layout_marginTop="10dp" />
+            android:textColor="#000"
+            android:textSize="17sp"
+            />
 
-        <!-- <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Digital Clock Cabinet"
-            android:id="@+id/clock"
-            android:layout_marginTop="20dp"/>-->
+        <TextClock android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format24Hour="dd-MM-yyyy"
+                android:hint="Current Date"
+                android:textSize="20sp" 
+                android:layout_marginTop="20dp"
+                />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextClock
-                android:id="@+id/clock"
-                android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            >
+            <CheckBox android:id="@+id/clrfDate"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Digital Clock Cabinet"
-                android:format12Hour="hh:mm"
-                android:textSize="20sp" 
-                android:layout_marginTop="20dp" />
+                android:layout_centerVertical="true"
+                android:text="@string/SendCRLF"
+                />
 
-            <TextClock
-                android:id="@+id/second"
-                android:layout_width="match_parent"
+            <Button android:id="@+id/sendDate"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:format24Hour=":ss"
-                android:textSize="20sp" 
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="50dp" />
-
+                android:layout_gravity="center"
+                android:text="@string/Send"
+                android:background="#EBC06C"
+                android:layout_toEndOf="@+id/clrfDate"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"
+                />
         </RelativeLayout>
 
-        <Button
-            android:id="@+id/sendClock"
+        <TextClock android:id="@+id/clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="200dp"
-            android:layout_gravity="center"
-            android:text="Send" 
-            android:background="#EBC06C"
-            android:layout_marginTop="10dp" />
+            android:format24Hour="HH:mm:ss"
+            android:text="00:00:00"
+            android:textSize="20sp"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            >
+            <CheckBox android:id="@+id/clrfClock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/SendCRLF"
+                />
 
-        <EditText
-            android:id="@+id/stepperMotor"
+            <Button android:id="@+id/sendClock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_toEndOf="@+id/clrfClock"
+                android:background="#EBC06C"
+                android:text="@string/Send"
+                />
+        </RelativeLayout>
+
+        <EditText android:id="@+id/gyro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Stepper Motor Controller"
+            android:layout_marginTop="15dp"
+            android:hint="Raw Message 1"
+            android:minHeight="48dp"
+            android:singleLine="true"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            >
+            <CheckBox android:id="@+id/clrfGyro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/SendCRLF"
+                />
+
+            <Button android:id="@+id/sendGyro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/Send"
+                android:background="#EBC06C"
+                android:layout_marginStart="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/clrfGyro"
+                 />
+        </RelativeLayout>
+        
+        <EditText android:id="@+id/stepperMotor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Raw Message 2"
             android:minHeight="48dp"
             android:singleLine="true" 
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            >
+            <CheckBox android:id="@+id/clrfMotor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/SendCRLF"
+                />
 
-        <Button
-            android:id="@+id/sendStepperMotor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="200dp"
-            android:layout_gravity="center"
-            android:text="Send" 
-            android:background="#EBC06C"
-            android:layout_marginTop="10dp" />
+            <Button android:id="@+id/sendStepperMotor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/Send"
+                android:background="#EBC06C"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/clrfMotor"
+                 />
+        </RelativeLayout>
 
-        <EditText
-            android:id="@+id/rawMsg"
+        <EditText android:id="@+id/rawMsg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="General / Raw Message"
+            android:hint="Raw Message 3"
             android:minHeight="48dp"
-            android:singleLine="true" />
+            android:singleLine="true"
+            />
 
-        <Button
-            android:id="@+id/sendRawMsg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="100dp"
-            android:background="#EBC06C"
-            android:minWidth="200dp"
-            android:text="Send" />
+            >
+            <CheckBox android:id="@+id/clrfRaw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/SendCRLF"
+                />
 
+            <Button android:id="@+id/sendRawMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:background="#EBC06C"
+                android:text="@string/Send"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/clrfRaw"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            >
+            <CheckBox android:id="@+id/clrfAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/SendCRLF"
+                />
+
+            <Button android:id="@+id/sendAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:background="#EBC06C"
+                android:text="Send All" 
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/clrfAll"
+                />
+        </RelativeLayout>
     </LinearLayout>
 
-    <RelativeLayout
+    </ScrollView>
+
+    <RelativeLayout android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
-        android:id="@+id/footer">
+        >
 
-        <TextView
-            android:id="@+id/copyright"
+        <TextView android:id="@+id/copyright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:text="\u00a9">
-        </TextView>
+            android:text="\u00a9"
+            />
 
-        <ImageView
-            android:id="@+id/logo"
+        <ImageView android:id="@+id/logo"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:layout_marginLeft="14dp"
-            android:src="@drawable/logo"/>
+            android:layout_marginStart="14dp"
+            android:src="@drawable/logo"
+            />
 
-        <TextView
-            android:id="@+id/tekno"
+        <TextView android:id="@+id/tekno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="11sp"
-            android:text="            Teknomatrik Sdn. Bhd.">
-        </TextView>
+            android:text="            Teknomatrik Sdn. Bhd."
+            />
 
         <TextView
             android:id="@+id/by"
@@ -173,7 +256,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:textSize="11sp"
-            android:text="              By: Siti Khadijah">
-        </TextView>
+            android:text="              By: Siti Khadijah"
+            />
     </RelativeLayout>
 </RelativeLayout>

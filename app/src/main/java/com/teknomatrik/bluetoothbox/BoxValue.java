@@ -17,21 +17,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextClock;
 import android.widget.TextView;
+import android.widget.CheckBox;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
 import java.util.UUID;
+import java.util.Calendar;
 
 public class BoxValue extends AppCompatActivity {
 
     TextView status, msg_box;
-    Button sendG, sendC, sendM, sendR;
+    Button sendD, sendG, sendC, sendM, sendR, sendA;
     EditText gyro, motor, raw;
-    TextClock clock, second;
+    TextClock clock, date;
+    CheckBox clrfD, clrfC, clrfG, clrfM, clrfR, clrfA;
 
     Date today = new Date();
+    Calendar cal = Calendar.getInstance();
     String time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
 
@@ -71,56 +75,111 @@ public class BoxValue extends AppCompatActivity {
 
     private void findViewByIdea() {
         status = (TextView) findViewById(R.id.status);
-        gyro = (EditText) findViewById(R.id.gyro);
-        sendG = (Button) findViewById(R.id.sendGyro);
+        msg_box = (TextView) findViewById(R.id.msg);
+        date = (TextClock) findViewById(R.id.date);
+        clrfD = (CheckBox) findViewById(R.id.clrfDate);
+        sendD = (Button) findViewById(R.id.sendDate);
         clock = (TextClock) findViewById(R.id.clock);
-        second = (TextClock) findViewById(R.id.second);
+        clrfC = (CheckBox) findViewById(R.id.clrfClock);
         sendC = (Button) findViewById(R.id.sendClock);
+        gyro = (EditText) findViewById(R.id.gyro);
+        clrfG = (CheckBox) findViewById(R.id.clrfGyro);
+        sendG = (Button) findViewById(R.id.sendGyro);
         motor = (EditText) findViewById(R.id.stepperMotor);
+        clrfM = (CheckBox) findViewById(R.id.clrfMotor);
         sendM = (Button) findViewById(R.id.sendStepperMotor);
         raw = (EditText) findViewById(R.id.rawMsg);
         sendR = (Button) findViewById(R.id.sendRawMsg);
-        msg_box = (TextView) findViewById(R.id.msg);
+        clrfR = (CheckBox) findViewById(R.id.clrfRaw);
+        sendA = (Button) findViewById(R.id.sendAll);
+        clrfA = (CheckBox) findViewById(R.id.clrfAll);
+    }
+
+    private void SendMessage(TextView textView, CheckBox withCLRF, String pre, String post) {
+        SendMessage(textView.getText().toString(), withCLRF, pre, post);
+    }
+
+    private void SendMessage(TextView textView, CheckBox withCLRF) {
+        SendMessage(textView.getText().toString(), withCLRF, "", "");
+    }
+
+    private void SendMessage(String s, CheckBox withCLRF, String pre, String post) {
+        String c = pre + s + post;
+        if (withCLRF.isChecked()) c += "\r\n";
+        sendRecieve.write(c.getBytes());
     }
 
     private void implementListeners() {
-        sendG.setOnClickListener(new View.OnClickListener(){
+        sendD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                String string = String.valueOf(gyro.getText());
-                String g = "G" + string + "g";
-                gyro.setText("");
-                sendRecieve.write(g.getBytes());
+                SendMessage(date, clrfD, "D", "d");
+                // String string = String.valueOf(date.getText());
+                // String c = "D" + string + "d";
+                // if (clrfD.isChecked()) c += "\r\n";
+                // //Log.d("message", string);
+                // sendRecieve.write(c.getBytes());
             }
         });
 
-        sendC.setOnClickListener(new View.OnClickListener(){
+        sendC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                String string = String.valueOf(clock.getText());
-                String string2 = String.valueOf(second.getText());
-                String c = "C" + string + string2 + "c";
-                //Log.d("message", string);
-                sendRecieve.write(c.getBytes());
+                SendMessage(clock, clrfC, "C", "c");
+                // String string = String.valueOf(clock.getText());
+                // String c = "C" + string + "c";
+                // if (clrfC.isChecked()) c += "\r\n";
+                // //Log.d("message", string);
+                // sendRecieve.write(c.getBytes());
+            }
+        });
+
+        sendG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                SendMessage(gyro, clrfG);
+                // String string = String.valueOf(gyro.getText());
+                // String g = string;
+                // if (clrfG.isChecked()) g += "\r\n";
+                // //gyro.setText("");
+                // sendRecieve.write(g.getBytes());
             }
         });
 
         sendM.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                String string = String.valueOf(motor.getText());
-                String s = "S" + string + "s";
-                motor.setText("");
-                sendRecieve.write(s.getBytes());
+                SendMessage(motor, clrfM);
+                // String string = String.valueOf(motor.getText());
+                // String s = string;
+                // if (clrfM.isChecked()) s += "\r\n";
+                // //motor.setText("");
+                // sendRecieve.write(s.getBytes());
             }
         });
 
         sendR.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                String string = String.valueOf(raw.getText());
-                motor.setText("");
-                sendRecieve.write(string.getBytes());
+                SendMessage(raw, clrfR);
+                // String s = String.valueOf(raw.getText());
+                // if (clrfR.isChecked()) s += "\r\n";
+                // //motor.setText("");
+                // sendRecieve.write(s.getBytes());
+            }
+        });
+
+        sendA.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                String g = String.valueOf(gyro.getText());
+                String m = String.valueOf(motor.getText());
+                String s = String.valueOf(raw.getText());
+                String all = g + m + s;
+                SendMessage(all, clrfA, "", "");
+                // if (clrfA.isChecked()) all += "\r\n";
+                // //motor.setText("");
+                // sendRecieve.write(all.getBytes());
             }
         });
     }

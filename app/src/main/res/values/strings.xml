@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Teknomatrik Bluetooth Transmitter V2</string>
+    <string name="SendCRLF">Send With CRLF</string>
+    <string name="Send">Send</string>
 </resources>
