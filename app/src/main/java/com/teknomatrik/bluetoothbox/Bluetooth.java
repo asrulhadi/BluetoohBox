@@ -32,7 +32,7 @@ public class Bluetooth extends AppCompatActivity {
 
     Button listen, connection, listDevices;
     ListView listView;
-    TextView msg_box, status;
+    TextView status;
 
     private BluetoothAdapter mBlueAdapter;
     BluetoothDevice[] bluetoothDevices;
@@ -136,7 +136,7 @@ public class Bluetooth extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Please turn on Bluetooth.",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    status.setText("Connecting...");
+                    status.setText("Listening...");
                     ServerClass serverClass = new ServerClass();
                     serverClass.start();
                 }
@@ -192,13 +192,15 @@ public class Bluetooth extends AppCompatActivity {
                 case STATE_CONNECTING:
                     break;
                 case STATE_CONNECTED:
+                    status.setText("Connected: " + msg.obj);
                     break;
                 case STATE_CONNECTION_FAILED:
+                    status.setText("Connection Failed");
                     break;
                 case STATE_MESSAGE_RECEIVED:
                     byte[] readBuff = (byte[]) msg.obj;
                     String tempMsg = new String(readBuff,0,msg.arg1);
-                    msg_box.setText(tempMsg);
+                    status.setText("Received: " + tempMsg);
                     break;
             }
             return  true;
@@ -270,7 +272,7 @@ public class Bluetooth extends AppCompatActivity {
             while(true) {
                 try {
                     bytes = inputStream.read(buffer);
-                    handler.obtainMessage(STATE_MESSAGE_RECEIVED,bytes,-1,buffer).sendToTarget();
+                    handler.obtainMessage(STATE_MESSAGE_RECEIVED, bytes, -1, buffer).sendToTarget();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

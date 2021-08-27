@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -107,6 +108,7 @@ public class BoxValue extends AppCompatActivity {
         String c = pre + s + post;
         if (withCLRF.isChecked()) c += "\r\n";
         sendRecieve.write(c.getBytes());
+        Toast.makeText(getApplicationContext(),"Sending: " + c,Toast.LENGTH_SHORT).show();
     }
 
     private void implementListeners() {
@@ -114,11 +116,6 @@ public class BoxValue extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 SendMessage(date, clrfD, "D", "d");
-                // String string = String.valueOf(date.getText());
-                // String c = "D" + string + "d";
-                // if (clrfD.isChecked()) c += "\r\n";
-                // //Log.d("message", string);
-                // sendRecieve.write(c.getBytes());
             }
         });
 
@@ -126,11 +123,6 @@ public class BoxValue extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 SendMessage(clock, clrfC, "C", "c");
-                // String string = String.valueOf(clock.getText());
-                // String c = "C" + string + "c";
-                // if (clrfC.isChecked()) c += "\r\n";
-                // //Log.d("message", string);
-                // sendRecieve.write(c.getBytes());
             }
         });
 
@@ -138,11 +130,6 @@ public class BoxValue extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 SendMessage(gyro, clrfG);
-                // String string = String.valueOf(gyro.getText());
-                // String g = string;
-                // if (clrfG.isChecked()) g += "\r\n";
-                // //gyro.setText("");
-                // sendRecieve.write(g.getBytes());
             }
         });
 
@@ -150,11 +137,6 @@ public class BoxValue extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 SendMessage(motor, clrfM);
-                // String string = String.valueOf(motor.getText());
-                // String s = string;
-                // if (clrfM.isChecked()) s += "\r\n";
-                // //motor.setText("");
-                // sendRecieve.write(s.getBytes());
             }
         });
 
@@ -162,10 +144,6 @@ public class BoxValue extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 SendMessage(raw, clrfR);
-                // String s = String.valueOf(raw.getText());
-                // if (clrfR.isChecked()) s += "\r\n";
-                // //motor.setText("");
-                // sendRecieve.write(s.getBytes());
             }
         });
 
@@ -177,9 +155,6 @@ public class BoxValue extends AppCompatActivity {
                 String s = String.valueOf(raw.getText());
                 String all = g + m + s;
                 SendMessage(all, clrfA, "", "");
-                // if (clrfA.isChecked()) all += "\r\n";
-                // //motor.setText("");
-                // sendRecieve.write(all.getBytes());
             }
         });
     }
